@@ -26,8 +26,29 @@
     height: 400px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    background-image: url(images/tic-tac-toe.jpeg);
+    background-size: cover;
 }
 
 .board div {
-    border: thin solid red;
+    /* border: thin solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.board div img {
+    height: 50px;
+    width: 50px;
+}
+
+.o-icon, .x-icon {
+    transform: scale(0);
+    position: absolute;
+}
+
+#inserted {
+  transform: scale(1); 
 }
