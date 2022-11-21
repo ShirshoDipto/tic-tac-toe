@@ -19,6 +19,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.selection {
+    display: grid;
+    width: 400px;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    gap: 10px;
+    position: relative
+}
+
+
+.selection h3 {
+    grid-column: 1 / 3;
 }
 
 .board {
@@ -51,4 +67,14 @@
 
 #inserted {
   transform: scale(1); 
+}
+
+/* #show {
+    position: static;
+    transform: scale(1);
+} */
+
+#hide {
+    position: absolute;
+    transform: scale(0);
 }
