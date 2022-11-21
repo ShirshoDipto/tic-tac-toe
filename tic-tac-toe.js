@@ -69,7 +69,6 @@ const Flow = (player1, player2) => {
         cells.forEach((cell) => {
             cell.removeEventListener('click', play);
         })
-        // console.log('it worked');
     }
 
     return {placeMarker, isGameOver, rmEventListener};
@@ -85,8 +84,13 @@ function play(e) {
     workflow.placeMarker(e.target);
     if (workflow.isGameOver()) {
         workflow.rmEventListener();
+        // bring the modal saying game over
     }
-    // bring the modal saying game over
+    else if (!gameBoard.array.includes(null)) {
+        // bring game modal saying draw
+        // for now just cech whether it works
+        console.log('it is a draw');
+    }
 }
 
 const cells = Array.from(document.querySelectorAll('div[index]'));
