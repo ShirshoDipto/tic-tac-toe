@@ -78,3 +78,9 @@
     position: absolute;
     transform: scale(0);
 }
+
+.turns {
+    font-weight: bold;
+    font-size: 40px;
+    grid-column: 1 / 3;
+}

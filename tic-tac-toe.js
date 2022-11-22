@@ -84,10 +84,11 @@ const Flow = (player1, player2) => {
     const setMarker = (e) => {
         if (e.target.classList.value === 'choice-o') {
             player1.mark = 'o';
-            player2.mark = 'x'
+            player2.mark = 'x';
             console.log(player1);
             console.log(player2);
         }
+
         else {
             player1.mark = 'x';
             player2.mark = 'o';
@@ -98,7 +99,14 @@ const Flow = (player1, player2) => {
         const board = document.querySelector('.board');
         board.removeAttribute('id');
         // change the text on top of board
-        // 
+        h3.setAttribute('id', 'hide');
+        choice_o.setAttribute('id', 'hide');
+        choice_x.setAttribute('id', 'hide');
+        const turns = document.querySelector('.turns');
+        turns.removeAttribute('id');
+        
+        
+
     }
 
     return { placeMarker, isGameOver, rmEventListener, showNextOption, setMarker };
