@@ -71,13 +71,39 @@ const Flow = (player1, player2) => {
         })
     }
 
-    return {placeMarker, isGameOver, rmEventListener};
+    const showNextOption = (e) => {
+        console.log(e.target);
+        playerVplayer.setAttribute('id', 'hide');
+        playerVAi.setAttribute('id', 'hide');
+        h3.removeAttribute('id');
+        choice_o.removeAttribute('id');
+        choice_x.removeAttribute('id');
+    }
+
+
+    const setMarker = (e) => {
+        if (e.target.classList.value === 'choice-o') {
+            player1.mark = 'o';
+            player2.mark = 'x'
+            console.log(player1);
+            console.log(player2);
+        }
+        else {
+            player1.mark = 'x';
+            player2.mark = 'o';
+            console.log(player1);
+            console.log(player2);
+        }
+        // bring the board
+        const board = document.querySelector('.board');
+        board.removeAttribute('id');
+        // change the text on top of board
+        // 
+    }
+
+    return { placeMarker, isGameOver, rmEventListener, showNextOption, setMarker };
 }
 
-
-const player1 = Player('x', true);
-const player2 = Player('o', false);
-const workflow = Flow(player1, player2);
 
 
 function play(e) {
@@ -93,7 +119,36 @@ function play(e) {
     }
 }
 
+
+
+
+
+
+
+
+
 const cells = Array.from(document.querySelectorAll('div[index]'));
+
+const h3 = document.querySelector('.selection h3');
+const choice_o = document.querySelector('.choice-o');
+const choice_x = document.querySelector('.choice-x');
+const playerVplayer = document.querySelector('.p-v-p');
+const playerVAi = document.querySelector('.p-v-ai');
+
+const player1 = Player('x', true);
+const player2 = Player('o', false);
+const workflow = Flow(player1, player2);
+
+playerVplayer.addEventListener('click', (e) => {
+    workflow.showNextOption(e);
+});
+
+choice_o.addEventListener('click', (e) => {
+    workflow.setMarker(e);
+});
+choice_x.addEventListener('click', (e) => {
+    workflow.setMarker(e);
+});
 
 
 cells.forEach((cell) => {
