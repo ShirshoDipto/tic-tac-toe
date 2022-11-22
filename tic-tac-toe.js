@@ -88,7 +88,7 @@ function play(e) {
     }
     else if (!gameBoard.array.includes(null)) {
         // bring game modal saying draw
-        // for now just cech whether it works
+        // for now just chech whether it works
         console.log('it is a draw');
     }
 }
@@ -113,5 +113,3 @@ cells.forEach((cell) => {
 
 // after clicking:
     // create player objects
-
-
