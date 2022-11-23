@@ -9,62 +9,65 @@
 </head>
 <body>
     <div class="main-container">
-        <div class="header"><h1>Tic Tac Toe game</h1></div>
+        <div class="header"><h1>Tic Tac Toe</h1></div>
         <div class="main">
-            <div class="selection">
-                <div class="names" id="hide">
-                    <input type="text" name="p1Name" placeholder="Player 1 Name:">
-                    <input type="text" name="p2Name" placeholder="Player 2 Name:">
-                    <button class="next">Next</button>
+            <div class="main2">
+                <div class="selection">
+                    <div class="names" id="hide">
+                        <input type="text" name="p1Name" placeholder="Player 1 Name:">
+                        <input type="text" name="p2Name" placeholder="Player 2 Name:">
+                        <button class="next">Next</button>
+                    </div>
+                    <div class="turns" id="hide"></div>
+                    <button class="p-v-p">Player vs Player</button>
+                    <button class="p-v-ai">AI vs Player</button>
+                    <h3 id="hide"></h3>
+                    <button id="hide" class="choice-o">'O'</button>
+                    <button id="hide" class="choice-x">'X'</button>
                 </div>
-                <div class="turns" id="hide"></div>
-                <button class="p-v-p">Player vs Player</button>
-                <button class="p-v-ai">AI vs Player</button>
-                <h3 id="hide"></h3> <!-- have to write that player 1 begins the game -->
-                <button id="hide" class="choice-o">'O'</button>
-                <button id="hide" class="choice-x">'X'</button>
-            </div>
-            <div class="board" id="hide">
-                <div class="r1c1" index="0">
-                    <img class="x-icon" src="icons/x.png" alt="'x' icon">
-                    <img class="o-icon" src="icons/o.png" alt="'o' icon">
+                <div class="board" id="hide">
+                    <div class="r1c1" index="0">
+                        <img class="x-icon" src="icons/x.png" alt="'x' icon">
+                        <img class="o-icon" src="icons/o.png" alt="'o' icon">
+                    </div>
+                    <div class="r1c2" index="1">
+                        <img class="x-icon" src="icons/x.png" alt="'x' icon">
+                        <img class="o-icon" src="icons/o.png" alt="'o' icon">
+                    </div>
+                    <div class="r1c3" index="2">
+                        <img class="x-icon" src="icons/x.png" alt="'x' icon">
+                        <img class="o-icon" src="icons/o.png" alt="'o' icon">
+                    </div>
+                    <div class="r2c1" index="3">
+                        <img class="x-icon" src="icons/x.png" alt="'x' icon">
+                        <img class="o-icon" src="icons/o.png" alt="'o' icon">
+                    </div>
+                    <div class="r2c2" index="4">
+                        <img class="x-icon" src="icons/x.png" alt="'x' icon">
+                        <img class="o-icon" src="icons/o.png" alt="'o' icon">
+                    </div>
+                    <div class="r2c3" index="5">
+                        <img class="x-icon" src="icons/x.png" alt="'x' icon">
+                        <img class="o-icon" src="icons/o.png" alt="'o' icon">
+                    </div>
+                    <div class="r3c1" index="6">
+                        <img class="x-icon" src="icons/x.png" alt="'x' icon">
+                        <img class="o-icon" src="icons/o.png" alt="'o' icon">
+                    </div>
+                    <div class="r3c2" index="7">
+                        <img class="x-icon" src="icons/x.png" alt="'x' icon">
+                        <img class="o-icon" src="icons/o.png" alt="'o' icon">
+                    </div>
+                    <div class="r3c3" index="8">
+                        <img class="x-icon" src="icons/x.png" alt="'x' icon">
+                        <img class="o-icon" src="icons/o.png" alt="'o' icon">
+                    </div>
                 </div>
-                <div class="r1c2" index="1">
-                    <img class="x-icon" src="icons/x.png" alt="'x' icon">
-                    <img class="o-icon" src="icons/o.png" alt="'o' icon">
+                <div id="hide" class="replay-newgame">
+                    <button class="new-game">New Game</button>
+                    <button class="replay">Replay</button>
                 </div>
-                <div class="r1c3" index="2">
-                    <img class="x-icon" src="icons/x.png" alt="'x' icon">
-                    <img class="o-icon" src="icons/o.png" alt="'o' icon">
-                </div>
-                <div class="r2c1" index="3">
-                    <img class="x-icon" src="icons/x.png" alt="'x' icon">
-                    <img class="o-icon" src="icons/o.png" alt="'o' icon">
-                </div>
-                <div class="r2c2" index="4">
-                    <img class="x-icon" src="icons/x.png" alt="'x' icon">
-                    <img class="o-icon" src="icons/o.png" alt="'o' icon">
-                </div>
-                <div class="r2c3" index="5">
-                    <img class="x-icon" src="icons/x.png" alt="'x' icon">
-                    <img class="o-icon" src="icons/o.png" alt="'o' icon">
-                </div>
-                <div class="r3c1" index="6">
-                    <img class="x-icon" src="icons/x.png" alt="'x' icon">
-                    <img class="o-icon" src="icons/o.png" alt="'o' icon">
-                </div>
-                <div class="r3c2" index="7">
-                    <img class="x-icon" src="icons/x.png" alt="'x' icon">
-                    <img class="o-icon" src="icons/o.png" alt="'o' icon">
-                </div>
-                <div class="r3c3" index="8">
-                    <img class="x-icon" src="icons/x.png" alt="'x' icon">
-                    <img class="o-icon" src="icons/o.png" alt="'o' icon">
-                </div>
-            </div>
-            <div id="hide" class="replay-newgame">
-                <button class="new-game">New Game</button>
-                <button class="replay">Replay</button>
+
             </div>
         </div>
 

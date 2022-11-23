@@ -5,16 +5,36 @@
 
 :root {
     --boardWidth: 400px;
+    --boxShadow: 0px 5px 5px rgb(128, 126, 126);
+    --buttonWidth: 100px;
+    --buttonHeight: 50px;
 }
 
 .main-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: rgb(219, 219, 219);
 }
 
 .header, .footer {
     text-align: center;
+    background-color: white;
+}
+
+.header {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--boxShadow);
+}
+
+.footer {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .main {
@@ -22,8 +42,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.main2 {
+    /* border: thin solid red; */
+    padding-top: 40px;
+    height: 700px;
+    width: 500px;
+    display: flex;
     flex-direction: column;
-    gap: 40px;
+    justify-content: flex-start;
+    align-items: center;
+    background: white;
+    box-shadow: var(--boxShadow);
+    gap: 60px;
 }
 
 .selection {
@@ -72,11 +104,6 @@
   transform: scale(1); 
 }
 
-/* #show {
-    position: static;
-    transform: scale(1);
-} */
-
 #hide {
     position: absolute;
     transform: scale(0);
@@ -101,4 +128,25 @@
     width: var(--boardWidth);
     display: flex;
     justify-content: space-around;
+}
+
+.p-v-p, .p-v-ai, .new-game, .replay, .next, .choice-o, .choice-x {
+    width: var(--buttonWidth);
+    height: var(--buttonHeight);
+}
+
+.choice-o, .choice-x {
+    font-size: large;
+    font-weight: bold;
+}
+
+input {
+    height: 20px;
+    width: 200px;
+    padding: 20px;
+    font-size: large;
+}
+
+h3 {
+    font-size: larger;
 }

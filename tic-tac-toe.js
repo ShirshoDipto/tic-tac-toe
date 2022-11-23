@@ -100,7 +100,6 @@ const Flow = (player1, player2) => {
             choice_x.removeAttribute('id');
         }
         else {
-            console.log(e.target);
             playerVplayer.setAttribute('id', 'hide');
             playerVAi.setAttribute('id', 'hide');
             const names = document.querySelector('.names');
@@ -112,20 +111,14 @@ const Flow = (player1, player2) => {
         if (e.target.classList.value === 'choice-o') {
             player1.mark = 'o';
             player2.mark = 'x';
-            console.log(player1);
-            console.log(player2);
         }
 
         else {
             player1.mark = 'x';
             player2.mark = 'o';
-            console.log(player1);
-            console.log(player2);
         }
-        // bring the board
         const board = document.querySelector('.board');
         board.removeAttribute('id');
-        // change the text on top of board
         h3.setAttribute('id', 'hide');
         choice_o.setAttribute('id', 'hide');
         choice_x.setAttribute('id', 'hide');
@@ -134,7 +127,6 @@ const Flow = (player1, player2) => {
     }
 
     const replayOrNewgame = (e) => {
-        console.log(e.target.classList.value);
         if (e.target.classList.value === 'new-game') {
             const board = document.querySelector('.board');
             board.setAttribute('id', 'hide');
@@ -150,8 +142,6 @@ const Flow = (player1, player2) => {
             gameBoard.gameOver = false;
         }
         else if (e.target.classList.value === 'replay') {
-            console.log("when enters into reset")
-            console.log(e.target);
             gameBoard.resetArray();
             gameBoard.updateBoard();
             gameBoard.removeMarkers();
@@ -166,19 +156,6 @@ const Flow = (player1, player2) => {
 
     return { placeMarker, isGameOver, rmEventListener, showNextOption, setMarker, replayOrNewgame };
 }
-
-// when the game is done:
-//  no more clicks allowed
-//  
-
-// if not game over:
-//  place marker
-//  check game over
-// else if game over:
-//  no more placing markers:
-//  show the congrats msg
-//  bring the newgame and replay button
-//  
 
 
 function play(e) {
@@ -196,16 +173,10 @@ function play(e) {
         replayNewgame.removeAttribute('id');
     }
     else if (!gameBoard.array.includes(null)) {
-        // bring game modal saying draw
-        // for now just chech whether it works
         turns.textContent = "It's a Draw!";
         replayNewgame.removeAttribute('id');
     }
 }
-
-
-
-
 
 
 const cells = Array.from(document.querySelectorAll('div[index]'));
@@ -219,7 +190,6 @@ const turns = document.querySelector('.turns');
 const next = document.querySelector('.next');
 const newgame = document.querySelector('.new-game');
 const replay = document.querySelector('.replay');
-console.log(replay);
 const replayNewgame = document.querySelector('.replay-newgame');
 
 const player1 = Player('x', true);
@@ -253,14 +223,3 @@ cells.forEach((cell) => {
 next.addEventListener('click', (e) => {
     workflow.showNextOption(e);
 })
-
-
-
-
-// newgame reset variable:
-// 1. array
-// 2. board
-// 3. player objects
-// 4. markers
-// 5. gameover value
-// 6. some doms
