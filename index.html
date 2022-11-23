@@ -12,10 +12,15 @@
         <div class="header"><h1>Tic Tac Toe game</h1></div>
         <div class="main">
             <div class="selection">
-                <div class="turns" id="hide">Player1 plays</div>
+                <div class="names" id="hide">
+                    <input type="text" name="p1Name" placeholder="Player 1 Name:">
+                    <input type="text" name="p2Name" placeholder="Player 2 Name:">
+                    <button class="next">Next</button>
+                </div>
+                <div class="turns" id="hide"></div>
                 <button class="p-v-p">Player vs Player</button>
                 <button class="p-v-ai">AI vs Player</button>
-                <h3 id="hide">Choose for player 1</h3> <!-- have to write that player 1 begins the game -->
+                <h3 id="hide"></h3> <!-- have to write that player 1 begins the game -->
                 <button id="hide" class="choice-o">'O'</button>
                 <button id="hide" class="choice-x">'X'</button>
             </div>
@@ -56,6 +61,10 @@
                     <img class="x-icon" src="icons/x.png" alt="'x' icon">
                     <img class="o-icon" src="icons/o.png" alt="'o' icon">
                 </div>
+            </div>
+            <div id="hide" class="replay-newgame">
+                <button class="new-game">New Game</button>
+                <button class="replay">Replay</button>
             </div>
         </div>
 
