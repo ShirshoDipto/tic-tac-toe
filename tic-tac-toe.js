@@ -17,6 +17,24 @@ const gameBoard = (() => {
 
     };
 
+    const placeMarker = (cell) => {
+        const index = parseInt(cell.getAttribute('index'));
+        if (workflow.player1.turn === true && array[index] === null) {
+            array[index] = workflow.player1.mark;
+            updateBoard();
+            workflow.player1.turn = false;
+            workflow.player2.turn = true
+            display.turns.textContent = `${workflow.player2.name}'s Turn`;
+        }
+        else if (workflow.player2.turn === true && array[index] === null) {
+            array[index] = workflow.player2.mark;
+            updateBoard();
+            workflow.player2.turn = false;
+            workflow.player1.turn = true;
+            display.turns.textContent = `${workflow.player1.name}'s Turn`;
+        }
+    }
+
     const resetArray = () => {
         for (let index = 0; index < array.length; index++) {
             array[index] = null;
@@ -31,7 +49,7 @@ const gameBoard = (() => {
         })
     }
 
-    return {gameOver, array, updateBoard, resetArray, removeMarkers};
+    return {gameOver, array, updateBoard, resetArray, removeMarkers, placeMarker};
 })();
 
 
@@ -41,23 +59,29 @@ const Player = (mark, turn) => {
 }
 
 
-const Flow = (player1, player2) => {
+const workflow = (() => {
 
-    const placeMarker = (cell) => {
-        const index = parseInt(cell.getAttribute('index'));
-        if (player1.turn === true && gameBoard.array[index] === null) {
-            gameBoard.array[index] = player1.mark;
-            gameBoard.updateBoard();
-            player1.turn = false;
-            player2.turn = true
-            turns.textContent = `${player2.name}'s Turn`;
+    const player1 = Player('x', true);
+    const player2 = Player('o', false);
+
+
+    const play = (e) => {
+        if (gameBoard.gameOver === false) {
+            gameBoard.placeMarker(e.target);
+            isGameOver();
         }
-        else if (player2.turn === true && gameBoard.array[index] === null) {
-            gameBoard.array[index] = player2.mark;
-            gameBoard.updateBoard();
-            player2.turn = false;
-            player1.turn = true;
-            turns.textContent = `${player1.name}'s Turn`;
+        if (gameBoard.gameOver === true) {
+            if (player1.turn === true) {
+                display.turns.textContent = `${player2.name} Wins!`;
+            }
+            else {
+                display.turns.textContent = `${player1.name} Wins!`;
+            }
+            display.replayNewgame.removeAttribute('id');
+        }
+        else if (!gameBoard.array.includes(null)) {
+            display.turns.textContent = "It's a Draw!";
+            display.replayNewgame.removeAttribute('id');
         }
     }
 
@@ -80,11 +104,54 @@ const Flow = (player1, player2) => {
         }
     }
 
-    const rmEventListener = () => {
-        cells.forEach((cell) => {
-            cell.removeEventListener('click', play);
-        })
-    }
+    return {player1, player2, play };
+})();
+
+
+
+const display = (() => {
+
+    const cells = Array.from(document.querySelectorAll('div[index]'));
+
+    const h3 = document.querySelector('.selection h3');
+    const choice_o = document.querySelector('.choice-o');
+    const choice_x = document.querySelector('.choice-x');
+    const playerVplayer = document.querySelector('.p-v-p');
+    const playerVAi = document.querySelector('.p-v-ai');
+    const turns = document.querySelector('.turns');
+    const next = document.querySelector('.next');
+    const newgame = document.querySelector('.new-game');
+    const replay = document.querySelector('.replay');
+    const replayNewgame = document.querySelector('.replay-newgame');
+
+    playerVplayer.addEventListener('click', (e) => {
+        showNextOption(e);
+    });
+
+    newgame.addEventListener('click', (e) => {
+        replayOrNewgame(e);
+    });
+
+    replay.addEventListener('click', (e) => {
+        replayOrNewgame(e);
+    });
+
+    choice_o.addEventListener('click', (e) => {
+        setMarker(e);
+    });
+    choice_x.addEventListener('click', (e) => {
+        setMarker(e);
+    });
+
+    cells.forEach((cell) => {
+        cell.addEventListener('click', (e) => {
+            workflow.play(e);
+        });
+    });
+
+    next.addEventListener('click', (e) => {
+        showNextOption(e);
+    })
 
     const showNextOption = (e) => {
         if (e.target.classList.value === 'next') {
@@ -92,10 +159,10 @@ const Flow = (player1, player2) => {
             names.setAttribute('id', 'hide');
             const p1Name = document.querySelector(`input[name="p1Name"]`);
             const p2Name = document.querySelector(`input[name="p2Name"]`);
-            player1.name = p1Name.value;
-            player2.name = p2Name.value;
+            workflow.player1.name = p1Name.value;   // may be make a function in the workflow that will change the player values.
+            workflow.player2.name = p2Name.value;
             h3.removeAttribute('id');
-            h3.textContent = `Choose for ${player1.name}`;
+            h3.textContent = `Choose for ${workflow.player1.name}`;
             choice_o.removeAttribute('id');
             choice_x.removeAttribute('id');
         }
@@ -105,25 +172,6 @@ const Flow = (player1, player2) => {
             const names = document.querySelector('.names');
             names.removeAttribute('id');
         }
-    }
-
-    const setMarker = (e) => {
-        if (e.target.classList.value === 'choice-o') {
-            player1.mark = 'o';
-            player2.mark = 'x';
-        }
-
-        else {
-            player1.mark = 'x';
-            player2.mark = 'o';
-        }
-        const board = document.querySelector('.board');
-        board.removeAttribute('id');
-        h3.setAttribute('id', 'hide');
-        choice_o.setAttribute('id', 'hide');
-        choice_x.setAttribute('id', 'hide');
-        turns.removeAttribute('id');
-        turns.textContent = `${player1.name}'s Turn`;
     }
 
     const replayOrNewgame = (e) => {
@@ -137,8 +185,8 @@ const Flow = (player1, player2) => {
             replayNewgame.setAttribute('id', 'hide');
             playerVplayer.removeAttribute('id');
             playerVAi.removeAttribute('id');
-            player1.turn = true;
-            player2.turn = false;
+            workflow.player1.turn = true;    // same goes here
+            workflow.player2.turn = false;
             gameBoard.gameOver = false;
         }
         else if (e.target.classList.value === 'replay') {
@@ -146,80 +194,33 @@ const Flow = (player1, player2) => {
             gameBoard.updateBoard();
             gameBoard.removeMarkers();
             replayNewgame.setAttribute('id', 'hide');
-            player1.turn = true;
-            player2.turn = false;
+            workflow.player1.turn = true;     // same goes here
+            workflow.player2.turn = false;
             gameBoard.gameOver = false;
-            turns.textContent = `${player1.name}'s Turn`;
-
+            turns.textContent = `${workflow.player1.name}'s Turn`;
         }
     }
 
-    return { placeMarker, isGameOver, rmEventListener, showNextOption, setMarker, replayOrNewgame };
-}
-
-
-function play(e) {
-    if (gameBoard.gameOver === false) {
-        workflow.placeMarker(e.target);
-        workflow.isGameOver();
-    }
-    if (gameBoard.gameOver === true) {
-        if (player1.turn === true) {
-            turns.textContent = `${player2.name} Wins!`;
+    const setMarker = (e) => {
+        const board = document.querySelector('.board');
+        board.removeAttribute('id');
+        h3.setAttribute('id', 'hide');
+        choice_o.setAttribute('id', 'hide');
+        choice_x.setAttribute('id', 'hide');
+        turns.removeAttribute('id');
+        turns.textContent = `${workflow.player1.name}'s Turn`;
+        if (e.target.classList.value === 'choice-o') {
+            workflow.player1.mark = 'o';
+            workflow.player2.mark = 'x';
         }
+
         else {
-            turns.textContent = `${player1.name} Wins!`;
+            workflow.player1.mark = 'x';
+            workflow.player2.mark = 'o';
         }
-        replayNewgame.removeAttribute('id');
     }
-    else if (!gameBoard.array.includes(null)) {
-        turns.textContent = "It's a Draw!";
-        replayNewgame.removeAttribute('id');
-    }
-}
 
 
-const cells = Array.from(document.querySelectorAll('div[index]'));
+    return { turns, replayNewgame };
 
-const h3 = document.querySelector('.selection h3');
-const choice_o = document.querySelector('.choice-o');
-const choice_x = document.querySelector('.choice-x');
-const playerVplayer = document.querySelector('.p-v-p');
-const playerVAi = document.querySelector('.p-v-ai');
-const turns = document.querySelector('.turns');
-const next = document.querySelector('.next');
-const newgame = document.querySelector('.new-game');
-const replay = document.querySelector('.replay');
-const replayNewgame = document.querySelector('.replay-newgame');
-
-const player1 = Player('x', true);
-const player2 = Player('o', false);
-const workflow = Flow(player1, player2);
-
-playerVplayer.addEventListener('click', (e) => {
-    workflow.showNextOption(e);
-});
-
-newgame.addEventListener('click', (e) => {
-    workflow.replayOrNewgame(e);
-});
-
-replay.addEventListener('click', (e) => {
-    console.log(e.target);
-    workflow.replayOrNewgame(e);
-});
-
-choice_o.addEventListener('click', (e) => {
-    workflow.setMarker(e);
-});
-choice_x.addEventListener('click', (e) => {
-    workflow.setMarker(e);
-});
-
-cells.forEach((cell) => {
-    cell.addEventListener('click', play);
-});
-
-next.addEventListener('click', (e) => {
-    workflow.showNextOption(e);
-})
+})();

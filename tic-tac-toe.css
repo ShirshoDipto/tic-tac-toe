@@ -45,7 +45,6 @@
 }
 
 .main2 {
-    /* border: thin solid red; */
     padding-top: 40px;
     height: 700px;
     width: 500px;
@@ -83,11 +82,11 @@
 }
 
 .board div {
-    /* border: thin solid red; */
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    padding: 30px;
 }
 
 .board div img {
